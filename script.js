@@ -4,19 +4,30 @@ var dataset = [{name: "Mima", score: 93 },
 {name: "Dani", score: 82 },
 {name: "Chris", score: 63 }];
 
-d3.select('.chart')
+var bar = d3.select('.chart')
 .append('svg')
 	.attr('width', 225)
 	.attr('height', 300)
 
-	.selectAll('rect')
+	.selectAll('g')
 	.data(dataset)
 	.enter()
-		.append('rect')
-		.attr('y', (d, i) => i * 33)
-		.style('width', d => d.score)
-		.text(function(d){return d.name;})
-		.attr('class', 'bar');
+		.append('g')
+		.attr('transform', (d, i) => 'translate(0, ' + i * 33 +')');
+
+bar.append('rect')
+	.style('width', d => d.score)
+	.text(function(d) {return d.name;})
+	.attr('class', 'bar');
+
+bar.append('text')
+	.attr('y', 20)
+	.attr('x', 5)
+	.text(function(d){return d.name;})
+	.attr('class', 'name');		
+		// .style('width', d => d.score)
+		// .text(function(d){return d.name;})
+		// .attr('class', 'bar');
 // .selectAll('div')
 // 	.data(dataset)
 // 	.enter()
